@@ -130,7 +130,7 @@
 
         /* ========= CARD UTAMA ========= */
         .linktree-card {
-            max-width: 620px;
+            max-width: 680px;
             width: 100%;
             background: rgba(10, 14, 30, 0.5);
             backdrop-filter: blur(16px);
@@ -256,9 +256,33 @@
             border-left: 4px solid #3b9eff;
             margin-bottom: 0.8rem;
         }
+        .zoom-btn:hover {
+            background: linear-gradient(95deg, #2a5f8f, #2a4a6f);
+        }
+        
         .materi-btn {
             background: linear-gradient(95deg, rgba(39, 103, 103, 0.8), rgba(28, 45, 75, 0.8));
             border-left: 4px solid #00cec9;
+        }
+        .materi-btn:hover {
+            background: linear-gradient(95deg, #2d7a7a, #1f3a5f);
+        }
+
+        /* Tombol tambahan: Registrasi & WA */
+        .regist-btn {
+            background: linear-gradient(95deg, #4a2c5e, #2e1a47);
+            border-left: 4px solid #c084fc;
+        }
+        .regist-btn:hover {
+            background: linear-gradient(95deg, #5e3a7a, #3e235e);
+        }
+        
+        .wa-btn {
+            background: linear-gradient(95deg, #075e54, #128C7E);
+            border-left: 4px solid #25D366;
+        }
+        .wa-btn:hover {
+            background: linear-gradient(95deg, #0b6b5e, #1da38a);
         }
 
         /* Meeting info */
@@ -391,7 +415,7 @@
             <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Mahkamah_Agung_RI.png" alt="Logo Badilum" style="background: #fff; border-radius: 50%; padding: 8px;">
         </div>
 
-        <!-- Judul acara: Bimbingan Teknis (sesuai permintaan) -->
+        <!-- Judul acara: Bimbingan Teknis -->
         <div class="event-title">
             Bimbingan Teknis
         </div>
@@ -406,7 +430,7 @@
             <i class="fas fa-calendar-alt"></i> 7 – 8 Mei 2026  •  09.00 WIB – selesai
         </div>
 
-        <!-- Link & Info Zoom + Folder Materi -->
+        <!-- Link & Info Zoom + Folder Materi + Registrasi + Grup WA -->
         <div class="links-container">
             <!-- Zoom Block -->
             <div class="zoom-block">
@@ -440,9 +464,23 @@
                 <span>📂 Folder Materi</span>
                 <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
             </a>
+
+            <!-- TAMBAHAN: Form Registrasi (Google Forms) -->
+            <a href="https://forms.gle/s7cL9yULTSG2915p9" class="link-btn regist-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-pen-to-square"></i>
+                <span>📋 Form Registrasi Bimtek</span>
+                <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+            </a>
+
+            <!-- TAMBAHAN: Grup WhatsApp -->
+            <a href="https://chat.whatsapp.com/GCHJ1pxQKjWIQbzAjSSXLw" class="link-btn wa-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i>
+                <span>💬 Grup WhatsApp Peserta</span>
+                <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+            </a>
         </div>
 
-        <!-- Footer: Alamat Direktorat Jenderal Badan Peradilan Umum (sesuai permintaan) -->
+        <!-- Footer: Alamat Direktorat Jenderal Badan Peradilan Umum -->
         <div class="footer-alamat">
             <i class="fas fa-building"></i>
             <span class="alamat-text">Jalan Jenderal A. Yani Kav. 58 - By Pass Cempaka Putih Timur, Jakarta Pusat, DKI Jakarta</span>
@@ -451,28 +489,25 @@
 
     <script>
         (function() {
-            // ===================== KONFIGURASI UTAMA (UBAH SESUAI KEBUTUHAN) =====================
+            // ===================== KONFIGURASI UTAMA =====================
             const ZOOM_LINK = "https://bit.ly/Bimtek_PP";  // Ganti dengan link Zoom asli
             const MEETING_ID = "609 239 8367";      // Ganti dengan Meeting ID
             const PASSCODE = "BimtekPP";               // Ganti dengan Passcode
-            const MATERI_LINK = "https://drive.google.com/drive/folders/1m1LIiloX4gPVaCrg7n6gSj3FyUxIoQB4?usp=sharing"; // Ganti dengan folder materi
+            const MATERI_LINK = "https://drive.google.com/drive/folders/1m1LIiloX4gPVaCrg7n6gSj3FyUxIoQB4?usp=sharing"; // Folder materi
 
-            // ===================== JANGAN UBAH DI BAWAH INI (kecuali untuk kustomisasi) =========
+            // ===================== JANGAN UBAH DI BAWAH INI =========
             const zoomBtn = document.getElementById('zoomLinkBtn');
             const materiBtn = document.getElementById('materiLinkBtn');
             const displayMeetingId = document.getElementById('displayMeetingId');
             const displayPasscode = document.getElementById('displayPasscode');
 
-            // Helper placeholder check
             function isPlaceholder(url) {
                 return !url || url === "#" || url.includes("javascript:void") || url.includes("placeholder") || url === "";
             }
 
-            // Set nilai meeting ID & passcode di tampilan
             if (displayMeetingId) displayMeetingId.textContent = MEETING_ID;
             if (displayPasscode) displayPasscode.textContent = PASSCODE;
 
-            // Setup Zoom Link
             if (zoomBtn) {
                 if (!isPlaceholder(ZOOM_LINK)) {
                     zoomBtn.href = ZOOM_LINK;
@@ -487,7 +522,6 @@
                 }
             }
 
-            // Setup Materi Link
             if (materiBtn) {
                 if (!isPlaceholder(MATERI_LINK)) {
                     materiBtn.href = MATERI_LINK;
@@ -497,12 +531,12 @@
                     materiBtn.href = "javascript:void(0);";
                     materiBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        alert("📁 Link Folder Materi belum diatur. Silakan ubah variabel MATERI_LINK.");
+                        alert("📁 Link Folder Materi belum diatur.");
                     });
                 }
             }
 
-            // ---------- Fungsi copy untuk Meeting ID & Passcode ----------
+            // Fungsi copy
             function fallbackCopy(text) {
                 const textArea = document.createElement("textarea");
                 textArea.value = text;
@@ -526,7 +560,6 @@
                     await navigator.clipboard.writeText(text);
                     alert(`✅ ${label} berhasil disalin: ${text}`);
                 } catch (err) {
-                    // fallback
                     const success = fallbackCopy(text);
                     if (success) {
                         alert(`✅ ${label} disalin (fallback): ${text}`);
@@ -536,7 +569,6 @@
                 }
             }
 
-            // Pasang event listener ke semua tombol copy
             document.querySelectorAll('.copy-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -556,7 +588,7 @@
                 });
             });
 
-            // Animasi fade-in card dan efek mouse paralax
+            // Animasi & efek mouse
             window.addEventListener('DOMContentLoaded', () => {
                 const card = document.querySelector('.linktree-card');
                 if (card) {
