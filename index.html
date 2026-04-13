@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bimbingan Teknis • Eksekusi Bidang Perdata</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Mahkamah_Agung_RI.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            color: #fff;
+        }
+
+        /* ========= BACKGROUND BERGERAK ========= */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .gradient-core {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a, #1e1a4b, #2d1b3c, #9b2c6b, #1e3a5f);
+            background-size: 400% 400%;
+            animation: gradientFlow 18s ease infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 50% 100%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 0%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .shape {
+            position: absolute;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.25), rgba(255, 180, 200, 0.15));
+            border-radius: 50%;
+            filter: blur(65px);
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .shape-1 {
+            width: 450px;
+            height: 450px;
+            top: -150px;
+            left: -100px;
+            background: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb);
+            animation: floatShape 22s infinite alternate ease-in-out;
+        }
+
+        .shape-2 {
+            width: 550px;
+            height: 550px;
+            bottom: -200px;
+            right: -150px;
+            background: radial-gradient(circle, #a18cd1, #fbc2eb, #84fab0);
+            animation: floatShape 28s infinite alternate-reverse ease-in-out;
+            opacity: 0.7;
+        }
+
+        .shape-3 {
+            width: 350px;
+            height: 350px;
+            top: 40%;
+            left: 60%;
+            background: radial-gradient(circle, #43e97b, #38f9d7);
+            animation: floatShape 19s infinite alternate ease;
+            opacity: 0.6;
+            filter: blur(70px);
+        }
+
+        .shape-4 {
+            width: 280px;
+            height: 280px;
+            bottom: 10%;
+            left: 5%;
+            background: radial-gradient(circle, #fccb90, #d57eeb);
+            animation: floatShape2 24s infinite alternate ease-in-out;
+            opacity: 0.5;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0px, 0px) scale(1); }
+            100% { transform: translate(70px, 50px) scale(1.2); }
+        }
+
+        @keyframes floatShape2 {
+            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+            100% { transform: translate(-50px, -60px) rotate(8deg) scale(1.15); }
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.05), rgba(0,0,0,0.02) 2px, transparent 3px, transparent 6px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ========= CARD UTAMA ========= */
+        .linktree-card {
+            max-width: 620px;
+            width: 100%;
+            background: rgba(10, 14, 30, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            padding: 2rem 2rem;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .linktree-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 32px 55px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Logo */
+        .logo {
+            margin-bottom: 1rem;
+        }
+        .logo-img {
+            max-width: 100px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 6px;
+        }
+
+        /* Judul & Tema */
+        .event-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            margin: 0.5rem 0 0.25rem;
+            background: linear-gradient(135deg, #fff, #e0c3ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        .subhead {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            color: #cfd8ff;
+        }
+        .theme {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0.25rem 0;
+            color: #ffe5b4;
+            background: rgba(0,0,0,0.3);
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        .date {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.7rem;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(0,0,0,0.25);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+        }
+
+        /* links */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 2rem 0 1.5rem;
+        }
+
+        /* Zoom block khusus */
+        .zoom-block {
+            background: rgba(20, 25, 55, 0.45);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 0.8rem 0.8rem 1rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(20, 25, 55, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 1rem 1.2rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: white;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        .link-btn i {
+            font-size: 1.2rem;
+            width: 1.8rem;
+        }
+        .link-btn:hover {
+            background: rgba(80, 90, 150, 0.85);
+            transform: scale(1.02) translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .zoom-btn {
+            background: linear-gradient(95deg, #1e4b7a, #1e3a5f);
+            border-left: 4px solid #3b9eff;
+            margin-bottom: 0.8rem;
+        }
+        .materi-btn {
+            background: linear-gradient(95deg, rgba(39, 103, 103, 0.8), rgba(28, 45, 75, 0.8));
+            border-left: 4px solid #00cec9;
+        }
+
+        /* Meeting info */
+        .meeting-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            padding: 0 0.3rem;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.6rem 1rem;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+        }
+        .info-row i {
+            width: 1.8rem;
+            font-size: 1.1rem;
+            color: #b3c7ff;
+        }
+        .info-label {
+            font-weight: 600;
+            margin-right: 6px;
+            color: #ddd;
+        }
+        .info-value {
+            font-family: 'Inter', monospace;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #f9f3c5;
+            margin-right: auto;
+        }
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #e0e0ff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+            margin-left: 8px;
+        }
+        .copy-btn:hover {
+            background: #3a5f8f;
+            color: white;
+            border-color: #aac9ff;
+            transform: scale(1.05);
+        }
+        .copy-btn i {
+            font-size: 1rem;
+            width: auto;
+            margin: 0;
+        }
+
+        /* Footer alamat */
+        .footer-alamat {
+            margin-top: 1.8rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.75rem;
+            opacity: 0.85;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .footer-alamat i {
+            font-size: 0.75rem;
+        }
+        .alamat-text {
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .linktree-card {
+                padding: 1.5rem 1.2rem;
+            }
+            .event-title {
+                font-size: 1.6rem;
+            }
+            .theme {
+                font-size: 1.1rem;
+            }
+            .link-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            .info-row {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.8rem;
+            }
+            .logo-img {
+                max-width: 75px;
+            }
+            .copy-btn {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background bergerak -->
+    <div class="animated-bg">
+        <div class="gradient-core"></div>
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
+    <!-- Card utama -->
+    <div class="linktree-card">
+        <!-- Logo Mahkamah Agung / Badilum -->
+        <div class="logo">
+            <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Mahkamah_Agung_RI.png" alt="Logo Badilum" style="background: #fff; border-radius: 50%; padding: 8px;">
+        </div>
+
+        <!-- Judul acara: Bimbingan Teknis (sesuai permintaan) -->
+        <div class="event-title">
+            Bimbingan Teknis
+        </div>
+        <div class="subhead">Direktorat Jenderal Badan Peradilan Umum</div>
+        
+        <!-- Tema: Eksekusi Bidang Perdata -->
+        <div class="theme">
+            <i class="fas fa-scale-balanced" style="margin-right: 6px;"></i> Eksekusi Bidang Perdata
+        </div>
+        <!-- Tanggal: 7-8 Mei 2026 -->
+        <div class="date">
+            <i class="fas fa-calendar-alt"></i> 7 – 8 Mei 2026  •  09.00 WIB – selesai
+        </div>
+
+        <!-- Link & Info Zoom + Folder Materi -->
+        <div class="links-container">
+            <!-- Zoom Block -->
+            <div class="zoom-block">
+                <!-- Link Zoom -->
+                <a href="#" class="link-btn zoom-btn" id="zoomLinkBtn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-video"></i>
+                    <span>🔗 Gabung Zoom Meeting</span>
+                    <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+                </a>
+
+                <!-- Meeting ID & Passcode -->
+                <div class="meeting-info">
+                    <div class="info-row">
+                        <i class="fas fa-id-badge"></i>
+                        <span class="info-label">Meeting ID:</span>
+                        <span class="info-value" id="displayMeetingId">123 456 7890</span>
+                        <button class="copy-btn" data-target="meetingId" title="Salin Meeting ID"><i class="far fa-copy"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-lock"></i>
+                        <span class="info-label">Passcode:</span>
+                        <span class="info-value" id="displayPasscode">123456</span>
+                        <button class="copy-btn" data-target="passcode" title="Salin Passcode"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Folder Materi -->
+            <a href="#" class="link-btn materi-btn" id="materiLinkBtn" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-folder-open"></i>
+                <span>📂 Folder Materi</span>
+                <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+            </a>
+        </div>
+
+        <!-- Footer: Alamat Direktorat Jenderal Badan Peradilan Umum (sesuai permintaan) -->
+        <div class="footer-alamat">
+            <i class="fas fa-building"></i>
+            <span class="alamat-text">Jalan Jenderal A. Yani Kav. 58 - By Pass Cempaka Putih Timur, Jakarta Pusat, DKI Jakarta</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ===================== KONFIGURASI UTAMA (UBAH SESUAI KEBUTUHAN) =====================
+            const ZOOM_LINK = "https://zoom.us/j/1234567890?pwd=xxxxxxxx";  // Ganti dengan link Zoom asli
+            const MEETING_ID = "123 456 7890";      // Ganti dengan Meeting ID
+            const PASSCODE = "123456";               // Ganti dengan Passcode
+            const MATERI_LINK = "https://drive.google.com/drive/folders/1z-JzHKiklm2nWuP_8-W8b5ncAydu8HHQ?usp=sharing"; // Ganti dengan folder materi
+
+            // ===================== JANGAN UBAH DI BAWAH INI (kecuali untuk kustomisasi) =========
+            const zoomBtn = document.getElementById('zoomLinkBtn');
+            const materiBtn = document.getElementById('materiLinkBtn');
+            const displayMeetingId = document.getElementById('displayMeetingId');
+            const displayPasscode = document.getElementById('displayPasscode');
+
+            // Helper placeholder check
+            function isPlaceholder(url) {
+                return !url || url === "#" || url.includes("javascript:void") || url.includes("placeholder") || url === "";
+            }
+
+            // Set nilai meeting ID & passcode di tampilan
+            if (displayMeetingId) displayMeetingId.textContent = MEETING_ID;
+            if (displayPasscode) displayPasscode.textContent = PASSCODE;
+
+            // Setup Zoom Link
+            if (zoomBtn) {
+                if (!isPlaceholder(ZOOM_LINK)) {
+                    zoomBtn.href = ZOOM_LINK;
+                    zoomBtn.setAttribute('target', '_blank');
+                    zoomBtn.setAttribute('rel', 'noopener noreferrer');
+                } else {
+                    zoomBtn.href = "javascript:void(0);";
+                    zoomBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert("⚠️ Link Zoom belum diatur. Silakan ubah variabel ZOOM_LINK di dalam script.");
+                    });
+                }
+            }
+
+            // Setup Materi Link
+            if (materiBtn) {
+                if (!isPlaceholder(MATERI_LINK)) {
+                    materiBtn.href = MATERI_LINK;
+                    materiBtn.setAttribute('target', '_blank');
+                    materiBtn.setAttribute('rel', 'noopener noreferrer');
+                } else {
+                    materiBtn.href = "javascript:void(0);";
+                    materiBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert("📁 Link Folder Materi belum diatur. Silakan ubah variabel MATERI_LINK.");
+                    });
+                }
+            }
+
+            // ---------- Fungsi copy untuk Meeting ID & Passcode ----------
+            function fallbackCopy(text) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.top = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    return true;
+                } catch (err) {
+                    return false;
+                } finally {
+                    document.body.removeChild(textArea);
+                }
+            }
+
+            async function copyText(text, label) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    alert(`✅ ${label} berhasil disalin: ${text}`);
+                } catch (err) {
+                    // fallback
+                    const success = fallbackCopy(text);
+                    if (success) {
+                        alert(`✅ ${label} disalin (fallback): ${text}`);
+                    } else {
+                        alert(`❌ Gagal menyalin. Silakan salin manual.`);
+                    }
+                }
+            }
+
+            // Pasang event listener ke semua tombol copy
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = btn.getAttribute('data-target');
+                    let textToCopy = '';
+                    let label = '';
+                    if (target === 'meetingId') {
+                        textToCopy = MEETING_ID;
+                        label = 'Meeting ID';
+                    } else if (target === 'passcode') {
+                        textToCopy = PASSCODE;
+                        label = 'Passcode';
+                    }
+                    if (textToCopy) {
+                        copyText(textToCopy, label);
+                    }
+                });
+            });
+
+            // Animasi fade-in card dan efek mouse paralax
+            window.addEventListener('DOMContentLoaded', () => {
+                const card = document.querySelector('.linktree-card');
+                if (card) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(18px)';
+                    setTimeout(() => {
+                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 80);
+                }
+
+                document.addEventListener('mousemove', (e) => {
+                    const shapes = document.querySelectorAll('.shape');
+                    const mouseX = e.clientX / window.innerWidth;
+                    const mouseY = e.clientY / window.innerHeight;
+                    shapes.forEach((shape, idx) => {
+                        const moveX = (mouseX - 0.5) * 12;
+                        const moveY = (mouseY - 0.5) * 12;
+                        shape.style.transform = `translate(${moveX * (idx+0.5)}px, ${moveY * (idx+0.8)}px) scale(1)`;
+                    });
+                });
+            });
+
+        })();
+    </script>
+</body>
+</html>
