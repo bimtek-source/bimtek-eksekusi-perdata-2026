@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bimbingan Teknis • Eksekusi Bidang Perdata</title>
     <!-- Google Fonts & Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Mahkamah_Agung_RI.png">
 
     <style>
@@ -51,11 +53,21 @@
         }
 
         @keyframes gradientFlow {
-            0% { background-position: 0% 0%; }
-            25% { background-position: 50% 100%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 50% 0%; }
-            100% { background-position: 0% 0%; }
+            0% {
+                background-position: 0% 0%;
+            }
+            25% {
+                background-position: 50% 100%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            75% {
+                background-position: 50% 0%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
         }
 
         .shape {
@@ -108,13 +120,21 @@
         }
 
         @keyframes floatShape {
-            0% { transform: translate(0px, 0px) scale(1); }
-            100% { transform: translate(70px, 50px) scale(1.2); }
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+            100% {
+                transform: translate(70px, 50px) scale(1.2);
+            }
         }
 
         @keyframes floatShape2 {
-            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            100% { transform: translate(-50px, -60px) rotate(8deg) scale(1.15); }
+            0% {
+                transform: translate(0px, 0px) rotate(0deg) scale(1);
+            }
+            100% {
+                transform: translate(-50px, -60px) rotate(8deg) scale(1.15);
+            }
         }
 
         .noise-overlay {
@@ -123,7 +143,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.05), rgba(0,0,0,0.02) 2px, transparent 3px, transparent 6px);
+            background: repeating-radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.02) 2px, transparent 3px, transparent 6px);
             pointer-events: none;
             z-index: -1;
         }
@@ -154,8 +174,8 @@
         .logo-img {
             max-width: 100px;
             height: auto;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-            background: rgba(255,255,255,0.1);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 6px;
         }
@@ -184,7 +204,7 @@
             font-weight: 600;
             margin: 0.25rem 0;
             color: #ffe5b4;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             display: inline-block;
             padding: 0.2rem 1.2rem;
             border-radius: 40px;
@@ -199,7 +219,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: rgba(0,0,0,0.25);
+            background: rgba(0, 0, 0, 0.25);
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
@@ -207,12 +227,53 @@
             border-radius: 30px;
         }
 
+        /* Tombol Memo */
+        .memo-trigger-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.8rem;
+            background: linear-gradient(135deg, #fef3c7, #fde68a, #fcd34d);
+            color: #7c4a1e;
+            border: 2px solid #d4a43e;
+            padding: 0.5rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            backdrop-filter: blur(4px);
+        }
+        .memo-trigger-btn:hover {
+            background: linear-gradient(135deg, #fde68a, #fbbf24, #f59e0b);
+            color: #5c2d0a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+            border-color: #b8860b;
+        }
+        .memo-trigger-btn i {
+            font-size: 1rem;
+            animation: memoPulse 2s infinite;
+        }
+        @keyframes memoPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.25);
+            }
+        }
+
         /* links */
         .links-container {
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
-            margin: 2rem 0 1.5rem;
+            margin: 1.5rem 0 1.5rem;
         }
 
         /* Zoom block khusus */
@@ -250,7 +311,7 @@
             transform: scale(1.02) translateY(-2px);
             border-color: rgba(255, 255, 255, 0.5);
         }
-        
+
         .zoom-btn {
             background: linear-gradient(95deg, #1e4b7a, #1e3a5f);
             border-left: 4px solid #3b9eff;
@@ -259,7 +320,7 @@
         .zoom-btn:hover {
             background: linear-gradient(95deg, #2a5f8f, #2a4a6f);
         }
-        
+
         .materi-btn {
             background: linear-gradient(95deg, rgba(39, 103, 103, 0.8), rgba(28, 45, 75, 0.8));
             border-left: 4px solid #00cec9;
@@ -276,7 +337,7 @@
         .regist-btn:hover {
             background: linear-gradient(95deg, #5e3a7a, #3e235e);
         }
-        
+
         .wa-btn {
             background: linear-gradient(95deg, #075e54, #128C7E);
             border-left: 4px solid #25D366;
@@ -299,7 +360,7 @@
             padding: 0.6rem 1rem;
             border-radius: 60px;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.95rem;
         }
         .info-row i {
@@ -320,8 +381,8 @@
             margin-right: auto;
         }
         .copy-btn {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #e0e0ff;
             width: 34px;
             height: 34px;
@@ -351,7 +412,7 @@
         .footer-alamat {
             margin-top: 1.8rem;
             padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.75rem;
             opacity: 0.85;
             display: flex;
@@ -366,6 +427,201 @@
         .alamat-text {
             line-height: 1.4;
             text-align: center;
+        }
+
+        /* ========= SWEETALERT CUSTOM STYLE (Kertas Memo) ========= */
+        .swal2-popup.memo-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            max-width: 560px !important;
+            width: 90% !important;
+            padding: 0 !important;
+        }
+
+        .swal2-popup.memo-popup .swal2-html-container {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        .swal2-popup.memo-popup .swal2-actions {
+            margin-top: 1rem !important;
+        }
+
+        .swal2-popup.memo-popup .swal2-confirm {
+            background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+            border-radius: 50px !important;
+            padding: 0.65rem 2rem !important;
+            font-weight: 600 !important;
+            font-size: 0.95rem !important;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
+            transition: all 0.3s ease !important;
+        }
+        .swal2-popup.memo-popup .swal2-confirm:hover {
+            background: linear-gradient(135deg, #818cf8, #6366f1) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 22px rgba(99, 102, 241, 0.55) !important;
+        }
+
+        /* Container kertas */
+        .paper-memo-wrapper {
+            position: relative;
+            background: #faf8f3;
+            background-image:
+                linear-gradient(#e8e0d5 1px, transparent 1px),
+                linear-gradient(90deg, #e8e0d5 1px, transparent 1px),
+                radial-gradient(ellipse at 30% 20%, #fff9f0 0%, #f5efe0 40%, #ede4d3 100%);
+            background-size: 28px 28px, 28px 28px, 100% 100%;
+            border-radius: 6px;
+            padding: 2.2rem 2rem 1.8rem 2rem;
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.08),
+                0 6px 20px rgba(0, 0, 0, 0.15),
+                0 12px 40px rgba(0, 0, 0, 0.2),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: visible;
+            color: #3e2f1c;
+            text-align: left;
+            transform: rotate(-0.3deg);
+            transition: transform 0.3s ease;
+        }
+
+        .paper-memo-wrapper:hover {
+            transform: rotate(0deg) translateY(-2px);
+        }
+
+        /* Efek sobekan / lipatan */
+        .paper-memo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 30px;
+            right: 30px;
+            height: 16px;
+            background: repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 6px,
+                    #d4c8b8 6px,
+                    #d4c8b8 8px,
+                    transparent 8px,
+                    transparent 14px);
+            border-radius: 2px 2px 0 0;
+            opacity: 0.5;
+        }
+
+        /* Pin / klip */
+        .paper-memo-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-5deg);
+            width: 42px;
+            height: 18px;
+            background: linear-gradient(180deg, #b8a99a 0%, #9b8b7a 40%, #c4b5a3 100%);
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            z-index: 5;
+        }
+
+        /* Cap / stempel */
+        .stamp-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            border: 3px solid #c41e3a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c41e3a;
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transform: rotate(15deg);
+            opacity: 0.7;
+            pointer-events: none;
+            text-align: center;
+            line-height: 1.2;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.08);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .memo-header {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5c3d2e;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px dashed #d4c8b8;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .memo-header i {
+            color: #c41e3a;
+            font-size: 1.4rem;
+        }
+
+        .memo-body {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #4a3520;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .memo-body .greeting {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #3e2f1c;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .memo-body .closing {
+            display: block;
+            margin-top: 0.9rem;
+            font-weight: 700;
+            color: #3e2f1c;
+            font-size: 1.25rem;
+        }
+        .memo-body .highlight {
+            background: rgba(255, 215, 0, 0.25);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        /* Garis-garis notebook */
+        .memo-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border-radius: 6px;
+            overflow: hidden;
+            opacity: 0.3;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 27px,
+                    #c4b8a8 27px,
+                    #c4b8a8 28px);
+        }
+
+        .memo-content-inner {
+            position: relative;
+            z-index: 2;
         }
 
         @media (max-width: 550px) {
@@ -392,6 +648,27 @@
             .copy-btn {
                 width: 32px;
                 height: 32px;
+            }
+            .paper-memo-wrapper {
+                padding: 1.5rem 1.2rem 1.3rem 1.2rem;
+            }
+            .memo-body {
+                font-size: 1rem;
+            }
+            .memo-header {
+                font-size: 1.4rem;
+            }
+            .stamp-badge {
+                width: 55px;
+                height: 55px;
+                font-size: 0.55rem;
+                top: 10px;
+                right: 10px;
+            }
+            .paper-memo-wrapper::after {
+                width: 32px;
+                height: 14px;
+                top: -14px;
             }
         }
     </style>
@@ -420,15 +697,20 @@
             Bimbingan Teknis
         </div>
         <div class="subhead">Direktorat Jenderal Badan Peradilan Umum</div>
-        
+
         <!-- Tema: Eksekusi Bidang Perdata -->
         <div class="theme">
             <i class="fas fa-scale-balanced" style="margin-right: 6px;"></i> Eksekusi Bidang Perdata
         </div>
         <!-- Tanggal: 30 April 2026 -->
         <div class="date">
-            <i class="fas fa-calendar-alt"></i> 30 April 2026  •  09.00 WIB – selesai
+            <i class="fas fa-calendar-alt"></i> 30 April 2026 • 09.00 WIB – selesai
         </div>
+
+        <!-- Tombol untuk membuka memo -->
+        <button class="memo-trigger-btn" id="openMemoBtn" title="Baca Memo Penting">
+            <i class="fas fa-envelope-open-text"></i> 📝 Memo Penting – Info Penginapan
+        </button>
 
         <!-- Link & Info Zoom + Folder Materi + Registrasi + Grup WA -->
         <div class="links-container">
@@ -487,22 +769,29 @@
         </div>
     </div>
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    </script>
+
     <script>
         (function() {
             // ===================== KONFIGURASI UTAMA =====================
-            const ZOOM_LINK = "#";  // Ganti dengan link Zoom asli
-            const MEETING_ID = "Menyusul";      // Ganti dengan Meeting ID
-            const PASSCODE = "Menyusul";               // Ganti dengan Passcode
-            const MATERI_LINK = "https://drive.google.com/drive/folders/1m1LIiloX4gPVaCrg7n6gSj3FyUxIoQB4?usp=sharing"; // Folder materi
+            const ZOOM_LINK = "#"; // Ganti dengan link Zoom asli
+            const MEETING_ID = "Menyusul"; // Ganti dengan Meeting ID
+            const PASSCODE = "Menyusul"; // Ganti dengan Passcode
+            const MATERI_LINK =
+                "https://drive.google.com/drive/folders/1m1LIiloX4gPVaCrg7n6gSj3FyUxIoQB4?usp=sharing"; // Folder materi
 
             // ===================== JANGAN UBAH DI BAWAH INI =========
             const zoomBtn = document.getElementById('zoomLinkBtn');
             const materiBtn = document.getElementById('materiLinkBtn');
             const displayMeetingId = document.getElementById('displayMeetingId');
             const displayPasscode = document.getElementById('displayPasscode');
+            const openMemoBtn = document.getElementById('openMemoBtn');
 
             function isPlaceholder(url) {
-                return !url || url === "#" || url.includes("javascript:void") || url.includes("placeholder") || url === "";
+                return !url || url === "#" || url.includes("javascript:void") || url.includes("placeholder") ||
+                    url === "";
             }
 
             if (displayMeetingId) displayMeetingId.textContent = MEETING_ID;
@@ -517,7 +806,16 @@
                     zoomBtn.href = "javascript:void(0);";
                     zoomBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        alert("⚠️ Link Zoom belum diatur. Silakan ubah variabel ZOOM_LINK di dalam script.");
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Info',
+                            text: '⚠️ Link Zoom belum diatur. Silakan ubah variabel ZOOM_LINK di dalam script.',
+                            confirmButtonColor: '#4f46e5',
+                            confirmButtonText: 'Oke',
+                            customClass: {
+                                popup: 'swal2-popup-custom'
+                            }
+                        });
                     });
                 }
             }
@@ -531,7 +829,16 @@
                     materiBtn.href = "javascript:void(0);";
                     materiBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        alert("📁 Link Folder Materi belum diatur.");
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Info',
+                            text: '📁 Link Folder Materi belum diatur.',
+                            confirmButtonColor: '#4f46e5',
+                            confirmButtonText: 'Oke',
+                            customClass: {
+                                popup: 'swal2-popup-custom'
+                            }
+                        });
                     });
                 }
             }
@@ -558,13 +865,43 @@
             async function copyText(text, label) {
                 try {
                     await navigator.clipboard.writeText(text);
-                    alert(`✅ ${label} berhasil disalin: ${text}`);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `✅ ${label} disalin!`,
+                        showConfirmButton: false,
+                        timer: 1800,
+                        timerProgressBar: true,
+                        customClass: {
+                            popup: 'swal2-popup-custom'
+                        }
+                    });
                 } catch (err) {
                     const success = fallbackCopy(text);
                     if (success) {
-                        alert(`✅ ${label} disalin (fallback): ${text}`);
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: `✅ ${label} disalin!`,
+                            showConfirmButton: false,
+                            timer: 1800,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'swal2-popup-custom'
+                            }
+                        });
                     } else {
-                        alert(`❌ Gagal menyalin. Silakan salin manual.`);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: '❌ Gagal menyalin. Silakan salin manual.',
+                            confirmButtonColor: '#4f46e5',
+                            customClass: {
+                                popup: 'swal2-popup-custom'
+                            }
+                        });
                     }
                 }
             }
@@ -588,8 +925,70 @@
                 });
             });
 
-            // Animasi & efek mouse
+            // ===================== MEMO DENGAN SWEETALERT =====================
+            function showMemo() {
+                Swal.fire({
+                    html: `
+                        <div class="paper-memo-wrapper">
+                            <div class="memo-lines"></div>
+                            <div class="stamp-badge">PENTING<br>📌</div>
+                            <div class="memo-content-inner">
+                                <div class="memo-header">
+                                    <i class="fas fa-paperclip"></i> Memo Resmi
+                                </div>
+                                <div class="memo-body">
+                                    <span class="greeting">Yth. Bapak/Ibu,</span>
+                                    <p style="margin: 0.3rem 0 0.6rem 0;">
+                                        Kami sampaikan bahwa pada kegiatan ini <span class="highlight">tidak disediakan fasilitas penginapan</span>.
+                                        Peserta diharapkan melakukan perjalanan <strong>pulang-pergi</strong> dari satuan kerja masing-masing menuju <strong>Pengadilan Tinggi Bandung</strong>.
+                                    </p>
+                                    <p style="margin: 0.3rem 0 0.6rem 0;">
+                                        Adapun <span class="highlight">biaya transportasi</span> akan ditanggung oleh <strong>DIPA Badan Peradilan Umum (Badilum)</strong>.
+                                    </p>
+                                    <span class="closing">Demikian disampaikan, terima kasih. 🙏</span>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    showConfirmButton: true,
+                    confirmButtonText: '<i class="fas fa-check"></i> Saya Mengerti',
+                    showCloseButton: true,
+                    closeButtonHtml: '<i class="fas fa-times"></i>',
+                    customClass: {
+                        popup: 'memo-popup',
+                        confirmButton: 'swal2-confirm',
+                        closeButton: 'swal2-close'
+                    },
+                    background: 'transparent',
+                    backdrop: 'rgba(0,0,0,0.7)',
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                    width: 'auto',
+                    padding: '0',
+                    didOpen: () => {
+                        // Animasi subtle pada kertas memo
+                        const paper = document.querySelector('.paper-memo-wrapper');
+                        if (paper) {
+                            paper.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                            paper.style.transform = 'rotate(0deg) scale(1)';
+                            setTimeout(() => {
+                                paper.style.transform = 'rotate(-0.2deg) scale(1)';
+                            }, 400);
+                        }
+                    }
+                });
+            }
+
+            // Event listener untuk tombol memo
+            if (openMemoBtn) {
+                openMemoBtn.addEventListener('click', () => {
+                    showMemo();
+                });
+            }
+
+            // Tampilkan memo secara otomatis saat halaman pertama kali dimuat (setelah 1.2 detik)
             window.addEventListener('DOMContentLoaded', () => {
+                // Animasi card
                 const card = document.querySelector('.linktree-card');
                 if (card) {
                     card.style.opacity = '0';
@@ -601,6 +1000,12 @@
                     }, 80);
                 }
 
+                // Tampilkan memo otomatis setelah 1.5 detik
+                setTimeout(() => {
+                    showMemo();
+                }, 1500);
+
+                // Efek mouse pada shapes
                 document.addEventListener('mousemove', (e) => {
                     const shapes = document.querySelectorAll('.shape');
                     const mouseX = e.clientX / window.innerWidth;
@@ -608,7 +1013,8 @@
                     shapes.forEach((shape, idx) => {
                         const moveX = (mouseX - 0.5) * 12;
                         const moveY = (mouseY - 0.5) * 12;
-                        shape.style.transform = `translate(${moveX * (idx+0.5)}px, ${moveY * (idx+0.8)}px) scale(1)`;
+                        shape.style.transform =
+                            `translate(${moveX * (idx + 0.5)}px, ${moveY * (idx + 0.8)}px) scale(1)`;
                     });
                 });
             });
