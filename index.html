@@ -150,7 +150,7 @@
 
         /* ========= CARD UTAMA ========= */
         .linktree-card {
-            max-width: 680px;
+            max-width: 720px;
             width: 100%;
             background: rgba(10, 14, 30, 0.5);
             backdrop-filter: blur(16px);
@@ -346,6 +346,38 @@
             background: linear-gradient(95deg, #0b6b5e, #1da38a);
         }
 
+        /* Bagian Presensi */
+        .jadwal-section {
+            margin-top: 0.4rem;
+        }
+        .jadwal-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: #ffe5b4;
+            background: rgba(0,0,0,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        .presensi-btn {
+            background: linear-gradient(95deg, #2d3a6a, #1f2950);
+            border-left: 4px solid #7f9cf5;
+            margin-bottom: 0.5rem;
+        }
+        .presensi-btn:hover {
+            background: linear-gradient(95deg, #3e4d80, #2c3868);
+        }
+
+        /* Virtual background */
+        .vbg-btn {
+            background: linear-gradient(95deg, #4a4a6a, #2e2e4a);
+            border-left: 4px solid #a0a0ff;
+        }
+        .vbg-btn:hover {
+            background: linear-gradient(95deg, #5e5e7e, #3c3c5e);
+        }
+
         /* Meeting info */
         .meeting-info {
             display: flex;
@@ -493,7 +525,6 @@
             transform: rotate(0deg) translateY(-2px);
         }
 
-        /* Efek sobekan / lipatan */
         .paper-memo-wrapper::before {
             content: '';
             position: absolute;
@@ -512,7 +543,6 @@
             opacity: 0.5;
         }
 
-        /* Pin / klip */
         .paper-memo-wrapper::after {
             content: '';
             position: absolute;
@@ -527,7 +557,6 @@
             z-index: 5;
         }
 
-        /* Cap / stempel */
         .stamp-badge {
             position: absolute;
             top: 20px;
@@ -601,7 +630,6 @@
             font-weight: 600;
         }
 
-        /* Garis-garis notebook */
         .memo-lines {
             position: absolute;
             top: 0;
@@ -760,6 +788,19 @@
                 <span>💬 Grup WhatsApp Peserta</span>
                 <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
             </a>
+
+            <!-- ===== BAGIAN BARU: JADWAL PRESENSI ===== -->
+            <div class="jadwal-section" id="jadwalPresensiContainer">
+                <div class="jadwal-title"><i class="fas fa-calendar-check"></i> Presensi Bimtek</div>
+                <!-- Tombol presensi akan di-generate oleh JavaScript -->
+            </div>
+
+            <!-- TAMBAHAN: Virtual Background Zoom -->
+            <a href="https://drive.google.com/drive/folders/1kLNxDCz15U9NryJf6ZUmxQVTh9YNunfJ?usp=sharing" class="link-btn vbg-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-image"></i>
+                <span>🖼️ Virtual Background Zoom</span>
+                <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+            </a>
         </div>
 
         <!-- Footer: Alamat Direktorat Jenderal Badan Peradilan Umum -->
@@ -770,8 +811,7 @@
     </div>
 
     <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         (function() {
@@ -782,12 +822,50 @@
             const MATERI_LINK =
                 "https://drive.google.com/drive/folders/1m1LIiloX4gPVaCrg7n6gSj3FyUxIoQB4?usp=sharing"; // Folder materi
 
-            // ===================== JANGAN UBAH DI BAWAH INI =========
+            // ===================== DATA JADWAL PRESENSI =====================
+            const jadwalPresensi = [
+                {
+                    tanggal: '2026-04-30',
+                    label: '30 April 2026 (Pembukaan)',
+                    link: 'https://forms.gle/CseoKnweWfafydbT7'
+                },
+                {
+                    tanggal: '2026-05-06',
+                    label: '6 Mei 2026',
+                    link: 'https://forms.gle/26NKQjNpo6uhJW7f8'
+                },
+                {
+                    tanggal: '2026-05-07',
+                    label: '7 Mei 2026',
+                    link: 'https://forms.gle/x1G9wYqvpcCf6hWN6'
+                }
+            ];
+
+            // ===================== FUNGSI BANTU WAKTU (ZONA WIB) =====================
+            function getCurrentDateTimeJakarta() {
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('en-CA', { timeZone: 'Asia/Jakarta' }); // yyyy-mm-dd
+                const timeStr = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Jakarta', hour12: false }); // HH:MM:SS
+                const [hours, minutes] = timeStr.split(':').map(Number);
+                return { dateStr, hours, minutes };
+            }
+
+            function canAccessPresensi(tanggalStr) {
+                const { dateStr, hours, minutes } = getCurrentDateTimeJakarta();
+                // Tanggal harus sama
+                if (dateStr !== tanggalStr) return false;
+                // Cek apakah jam antara 08:00 - 16:30
+                const totalMinutes = hours * 60 + minutes;
+                return totalMinutes >= 8 * 60 && totalMinutes <= 16 * 60 + 30;
+            }
+
+            // ===================== INISIALISASI ELEMEN =====================
             const zoomBtn = document.getElementById('zoomLinkBtn');
             const materiBtn = document.getElementById('materiLinkBtn');
             const displayMeetingId = document.getElementById('displayMeetingId');
             const displayPasscode = document.getElementById('displayPasscode');
             const openMemoBtn = document.getElementById('openMemoBtn');
+            const jadwalContainer = document.getElementById('jadwalPresensiContainer');
 
             function isPlaceholder(url) {
                 return !url || url === "#" || url.includes("javascript:void") || url.includes("placeholder") ||
@@ -843,7 +921,94 @@
                 }
             }
 
-            // Fungsi copy
+            // ===================== RENDER TOMBOL PRESENSI =====================
+            function renderJadwalPresensi() {
+                if (!jadwalContainer) return;
+                // Kosongkan container (jika ada isi sebelumnya)
+                jadwalContainer.innerHTML = '<div class="jadwal-title"><i class="fas fa-calendar-check"></i> Presensi Bimtek</div>';
+
+                jadwalPresensi.forEach(jadwal => {
+                    const btn = document.createElement('a');
+                    btn.href = '#';
+                    btn.className = 'link-btn presensi-btn';
+                    btn.setAttribute('data-tanggal', jadwal.tanggal);
+                    btn.setAttribute('data-link', jadwal.link);
+                    btn.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <span>Presensi ${jadwal.label}</span>
+                        <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+                    `;
+                    jadwalContainer.appendChild(btn);
+                });
+
+                // Tambahkan event listener (delegasi dari container)
+                jadwalContainer.addEventListener('click', function(e) {
+                    const btn = e.target.closest('.presensi-btn');
+                    if (!btn) return;
+                    e.preventDefault();
+
+                    const tanggal = btn.getAttribute('data-tanggal');
+                    const link = btn.getAttribute('data-link');
+                    const label = jadwalPresensi.find(j => j.tanggal === tanggal)?.label || tanggal;
+
+                    const { dateStr, hours, minutes } = getCurrentDateTimeJakarta();
+                    const sekarangTanggal = dateStr; // yyyy-mm-dd
+                    const sekarangTotalMenit = hours * 60 + minutes;
+
+                    // Cek apakah link ada
+                    if (!link || link === "#") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Link Belum Tersedia',
+                            text: 'Link presensi belum diatur. Mohon hubungi panitia.',
+                            confirmButtonColor: '#4f46e5'
+                        });
+                        return;
+                    }
+
+                    // Cek tanggal
+                    if (sekarangTanggal < tanggal) {
+                        // Belum waktunya
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Akses Belum Dibuka',
+                            text: `Presensi untuk ${label} akan dibuka pada hari pelaksanaan, pukul 08:00 WIB.`,
+                            confirmButtonColor: '#4f46e5'
+                        });
+                        return;
+                    }
+
+                    if (sekarangTanggal > tanggal) {
+                        // Sudah lewat
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Telah Berakhir',
+                            text: `Presensi untuk ${label} sudah ditutup.`,
+                            confirmButtonColor: '#4f46e5'
+                        });
+                        return;
+                    }
+
+                    // Tanggal sama, cek jam
+                    if (sekarangTotalMenit < 8 * 60 || sekarangTotalMenit > 16 * 60 + 30) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Di Luar Jam Presensi',
+                            text: `Presensi hanya dapat diisi pada pukul 08:00 - 16:30 WIB. Silakan kembali pada jam tersebut.`,
+                            confirmButtonColor: '#4f46e5'
+                        });
+                        return;
+                    }
+
+                    // Semua OK, buka link
+                    window.open(link, '_blank', 'noopener,noreferrer');
+                });
+            }
+
+            // Panggil render
+            renderJadwalPresensi();
+
+            // Fungsi copy (tidak diubah)
             function fallbackCopy(text) {
                 const textArea = document.createElement("textarea");
                 textArea.value = text;
@@ -967,7 +1132,6 @@
                     width: 'auto',
                     padding: '0',
                     didOpen: () => {
-                        // Animasi subtle pada kertas memo
                         const paper = document.querySelector('.paper-memo-wrapper');
                         if (paper) {
                             paper.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
@@ -980,16 +1144,13 @@
                 });
             }
 
-            // Event listener untuk tombol memo
             if (openMemoBtn) {
                 openMemoBtn.addEventListener('click', () => {
                     showMemo();
                 });
             }
 
-            // Tampilkan memo secara otomatis saat halaman pertama kali dimuat (setelah 1.2 detik)
             window.addEventListener('DOMContentLoaded', () => {
-                // Animasi card
                 const card = document.querySelector('.linktree-card');
                 if (card) {
                     card.style.opacity = '0';
@@ -1001,12 +1162,10 @@
                     }, 80);
                 }
 
-                // Tampilkan memo otomatis setelah 1.5 detik
                 setTimeout(() => {
                     showMemo();
                 }, 1500);
 
-                // Efek mouse pada shapes
                 document.addEventListener('mousemove', (e) => {
                     const shapes = document.querySelectorAll('.shape');
                     const mouseX = e.clientX / window.innerWidth;
